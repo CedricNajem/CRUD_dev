@@ -5,6 +5,8 @@ class App extends Component {
     super();
     this.state = {
       employeeData: [],
+      act: 0,
+      index: "",
     };
   }
 
@@ -13,19 +15,39 @@ class App extends Component {
     let employeeData = this.state.employeeData;
     let name = this.refs.txtName.value;
     let age = this.refs.txtAge.value;
-    let newEmployee = {
-      name: name,
-      age: age,
-    };
 
-    employeeData.push(newEmployee);
+    if (this.state.act === 0) {
+      let newEmployee = {
+        name: name,
+        age: age,
+      };
+
+      employeeData.push(newEmployee);
+    } else {
+      let index = this.state.index;
+      employeeData[index].name = name;
+      employeeData[index].age = age;
+    }
 
     this.setState({
       employeeData: employeeData,
+      act: 0,
     });
 
     this.refs.myForm.reset();
   }
+
+  handleEdit = (i) => {
+    let employeeData = this.state.employeeData[i];
+    this.refs.txtName.value = employeeData.name;
+    this.refs.txtAge.value = employeeData.age;
+
+    this.setState({
+      employeeData: employeeData,
+      act: 1,
+      index: i,
+    });
+  };
 
   handleDelete = (i) => {
     let employeeData = this.state.employeeData;
@@ -35,17 +57,15 @@ class App extends Component {
     });
   };
 
-  handleEdit = (i) => {};
-
   render() {
     let employeeData = this.state.employeeData;
     return (
       <div>
         <form ref="myForm">
           <label>Name</label>
-          <input type="text" ref="txtName" placeholder="Enntrée Nom" />
+          <input type="text" ref="txtName" placeholder="Entrée Nom" />
           <label>Age</label>
-          <input type="text" ref="txtAge" placeholder="Enntrée Age" />
+          <input type="text" ref="txtAge" placeholder="Entrée Age" />
           <button onClick={(e) => this.handleSubmit(e)}> Sauvegarder </button>
         </form>
 
