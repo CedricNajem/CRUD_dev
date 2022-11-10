@@ -4,13 +4,14 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      title: "TP CRUD",
       employeeData: [],
       act: 0,
       index: "",
     };
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     let employeeData = this.state.employeeData;
     let name = this.refs.txtName.value;
@@ -21,7 +22,6 @@ class App extends Component {
         name: name,
         age: age,
       };
-
       employeeData.push(newEmployee);
     } else {
       let index = this.state.index;
@@ -35,7 +35,7 @@ class App extends Component {
     });
 
     this.refs.myForm.reset();
-  }
+  };
 
   handleEdit = (i) => {
     let employeeData = this.state.employeeData[i];
@@ -61,17 +61,18 @@ class App extends Component {
     let employeeData = this.state.employeeData;
     return (
       <div>
+        <h1>{this.state.title}</h1>
         <form ref="myForm">
-          <label>Name</label>
+          <label>Nom</label>
           <input type="text" ref="txtName" placeholder="Entrée Nom" />
           <label>Age</label>
           <input type="text" ref="txtAge" placeholder="Entrée Age" />
-          <button onClick={(e) => this.handleSubmit(e)}> Sauvegarder </button>
+          <button onClick={(e) => this.handleSubmit(e)}>Sauvegarder</button>
         </form>
 
         <table>
           <tr>
-            <th>Name</th>
+            <th>Nom</th>
             <th>Age</th>
           </tr>
           {employeeData.map((data, i) => (
