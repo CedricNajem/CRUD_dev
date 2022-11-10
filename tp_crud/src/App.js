@@ -27,6 +27,16 @@ class App extends Component {
     this.refs.myForm.reset();
   }
 
+  handleDelete = (i) => {
+    let employeeData = this.state.employeeData;
+    employeeData.splice(i, 1);
+    this.setState({
+      employeeData: employeeData,
+    });
+  };
+
+  handleEdit = (i) => {};
+
   render() {
     let employeeData = this.state.employeeData;
     return (
@@ -49,7 +59,7 @@ class App extends Component {
               <td>{data.name}</td>
               <td>{data.age}</td>
               <td>
-                <button onClick={this.handleSubmit(i)}>Edit</button>
+                <button onClick={this.handleEdit(i)}>Edit</button>
               </td>
               <td>
                 <button onClick={this.handleDelete(i)}>Delete</button>
