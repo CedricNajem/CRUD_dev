@@ -28,14 +28,36 @@ class App extends Component {
   }
 
   render() {
+    let employeeData = this.state.employeeData;
     return (
-      <form ref="myForm">
-        <label>Name</label>
-        <input type="text" ref="txtName" placeholder="Enntrée Nom" />
-        <label>Age</label>
-        <input type="text" ref="txtAge" placeholder="Enntrée Age" />
-        <button onClick={(e) => this.handleSubmit(e)}> Sauvegarder </button>
-      </form>
+      <div>
+        <form ref="myForm">
+          <label>Name</label>
+          <input type="text" ref="txtName" placeholder="Enntrée Nom" />
+          <label>Age</label>
+          <input type="text" ref="txtAge" placeholder="Enntrée Age" />
+          <button onClick={(e) => this.handleSubmit(e)}> Sauvegarder </button>
+        </form>
+
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+          </tr>
+          {employeeData.map((data, i) => (
+            <tr key={i}>
+              <td>{data.name}</td>
+              <td>{data.age}</td>
+              <td>
+                <button onClick={this.handleSubmit(i)}>Edit</button>
+              </td>
+              <td>
+                <button onClick={this.handleDelete(i)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </table>
+      </div>
     );
   }
 }
