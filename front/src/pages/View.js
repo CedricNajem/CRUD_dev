@@ -1,9 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import axios from "axios";
+import "./View.css";
 
 const View = () => {
+  const [user, setUser] = useState(null);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    getSingleUser(id);
+  }, [id]);
+
+  const getSingleUser = async (id) => {
+    const response = await axios.get(`http://localhost:3000/user/${id}`);
+    console.log("response", response);
+    if (response.status === 200) {
+      setUser({ ...response.data[0] });
+    }
+  };
   return (
-    <div>
-      <h2>View</h2>
+    <div style={{ marginTop: "150px" }}>
+      <div className="card">
+        <div className="card-header">
+          <p>User Detail</p>
+        </div>
+        <div className="container">
+          <strong>Id:</strong>
+          <span>{id}</span>
+          <br />
+          <br />
+          <strong>Name:</strong>
+          <span>{user && user.name}</span>
+          <br />
+          <br />
+          <strong>Email:</strong>
+          <span>{user && user.email}</span>
+          <br />
+          <br />
+          <strong>Contact:</strong>
+          <span>{user && user.contact}</span>
+          <br />
+          <br />
+          <Link to="/">
+            <button className="btn btn-edit">Back</button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
