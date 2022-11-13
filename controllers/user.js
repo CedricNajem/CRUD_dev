@@ -11,3 +11,22 @@ export const createUser = (req, res) => {
   users.push({ ...user, id: uuid() });
   res.send(`User added to the database!`);
 };
+
+export const getUser = (req, res) => {
+  const singleUser = users.filter((user) => user.id === req.params.id);
+  res.send(singleUser);
+};
+
+export const deleteUser = (req, res) => {
+  users = users.filter((user) => user.id !== req.params.id);
+  res.send(`User deleted from the database.`);
+};
+
+export const updateUser = (req, res) => {
+  const user = users.find((user) => user.id === req.params.id);
+  user.name = req.body.name;
+  user.email = req.body.email;
+  user.contact = req.body.contact;
+
+  res.send(`User updated in the database.`);
+};
